@@ -7,6 +7,205 @@
 \date{2017-11-30}
 \maketitle
 \tableofcontents
-\chapter{}
+\chapter{Quick Start}
+\section{Installation} React是弹性的，能用在不同的项目中。可以用它来创建新的APP，也可以在现有的代码库中逐渐引入，还不用重写现有的全部代码（部分修改是必须的）。
+\paragraph{有几种开始原因}
+\subparagraph{体验一下}
+\subparagraph{放下成见，创建一个新的APP}
+\subparagraph{现有APP中增加React}
+\subsection{Try Out React}
+\paragraph{}如果只是感兴趣，可以试试CodePen。在这里你不需要安装任何东西，只需要写代码，看看他是怎么工作的。
+\paragraph{}如果习惯用文本编辑器，可以下载这个HTML文件，编辑，然后重新在浏览器中打开。这样做的表现很慢，不要在产品中这样使。
+\paragraph{}如果你是为了一个完整的应用，通常有两种方式来开始：使用Create React App或者加入到心有应用中。
+\subsection{创建一个新应用}
+\paragraph{CreateReactApp}是创建新的单页面React应用的最佳方式。他会配置开发环境，以便于使用最新的JavaScript特性，好的开发体验和优化成品应用。同时需要Node$ >=6 $
+\begin{verbatim}
+npm install -g create-react-app
+create-react-app my-app
+cd my-app
+npm start
+\end{verbatim}
+\paragraph{如果npm是5.2.0+，可以使用npx}
+\begin{verbatim}
+npx create-react-app my-app
+cd my-app
+npm start
+\end{verbatim}
+\paragraph{Create React App}不涉及后段逻辑和数据库。只是提供了前端的构建路线，所以可以配合任意后代。构建的时候需要用到类似Babel和Webpack这样的工具，但是工作的时候不需要任何设置。
+\paragraph{}但需要部署到生产环境的时候，执行$ npm run build $会在build目录创建一个优化过的应用。可以通过其README或者User Guide获得更多屏住。
+\subsection{在现有应用中添加React}
+\paragraph{增加React无需重写应用}
+\paragraph{尽量从某个小的部分开始，比如独立的插件，看看是否满足需要}
+\paragraph{尽管React可以不用需要构建路线，还是建议使用这些工具，让自己产品更加专业。现代构建路线包括：}
+\subparagraph{包管理工具：npm或者yarn}更方便管理第三方包。
+\subparagraph{捆绑机：webpack或者Browserify等}把模块化代码捆绑成小的包，优化加载时间。
+\subparagraph{编译器：Babel}将现代ES6等的代码编译成ES5的代码，让他可以在旧的浏览器中运行。
+\subsubsection{安装React}
+\paragprah{Note}强烈推荐设置一个产品构建配置，确保在用快速的React产品。
+\subsubsection{使用ES6与JSX}
+\paragraph{}推荐配合Babel使用React，这可以在代码中使用ES6和JSX。ES6的现代JavaScript特性让开发更容易，而JSX让JavaScript更容易用React工作。
+\paragraph{}Babel安装介绍说明了在不同环境中如何设置。在React项目中确认安装了babel-preset-react，babel-preset-env，并且在.babelrc中应用了这些工具。
+\subsubsection{用ES6和JSX赞叹世界}
+\paragraph{}推荐使用webpack或者Broserify等捆绑器，这就可以让模块化的代码捆绑成一个小的包裹中，优化加载时间。
+\paragraph{}代码如下：
+\begin{verbatim}
+import React from 'react';
+import ReactDom from 'react-dom';
+ReactDom.render(
+<h1> Hello, World! </h1>,
+document.getElementById('root')
+);
+\end{verbatim}
+\paragraph{} 上述代码会渲染到带有id为root的DOM元素中，所以需要在HTML文件中加入\verb | <div id=''root''></div> |
+\paragraph{}类似的，React Component也可以渲染到某个DOM元素中。
+\paragraph{}学习更多的整合React到现有代码中
+\subsubsection{开发与产品版本}
+\paragraph{}React默认带有很多警告，这些警告在开发中很有用。
+\paragraph{}然而这会让开发版远远大于产品版的应用。
+\paragraph{}学习如何告诉网页使用正确的React，如何最有效的配置产品构建过程
+\subparagraph{}用Create React App创建产品构建
+\subparagraph{}用Single-File构建器创建产品构建
+\subparagraph{}用Brunch创建产品构建
+\subparagraph{}用Browserify创建产品构建
+\subparagraph{}用Rollup创建产品构建
+\subparagraph{}用webpack创建产品构建
+\subsubsection{使用CDN}
+\paragraph{}如果不想用npm来管理包，react和react-dom都提供了单一的umd文件（CDN支持）
+\begin{verbatim}
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react@16/umd/react-dom.development.js"></script>
+\end{verbatim}
+\paragraph{}正像文件名中所诉，这是为了开发准备，不适用与产品。微型化、优化后的React版本，应如下引入
+\begin{verbatim}
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.js"></script>
+<script crossorigin src="https://unpkg.com/react@16/umd/react-dom.production.js"></script>
+\end{verbatim}
+\paragraph{}如果要特定版本react和react-dom，替换上述脚本中的16为指定版本数字即可。
+\paragraph{}如果用Bower，可以通过react包来管理。
+\paragraph{}为啥要用crossorigin
+\paragraph{}如果要从CDN上用React，推荐保留crossorigin描述。
+\begin{verbatim}
+<script crossorigin src="..."></script>
+\end{verbatim}
+\paragraph{}推荐确认CDN中返回头是否带有Access-Control-Allow-Origin:*。
+\paragraph{}这么做在React16里会有更好的错误捕获体验。
+\section{Introducing JSX}
+\subsection{Lists and Keys}
+\subsection{Rendering Elements}
+\subsection{Components and Props}
+\subsection{State and Lifecycle}
+\subsection{Composition vs Inheritance}
+\subsection{Conditional Rendering}
+\subsection{Forms}
+\subsection{Handling Events}
+\subsection{Lifting State Up}
+\subsection{Tinking in React}
+
+\chapter{Reference:Component}
+\subsubsection{componentDidCatch()}
+\subsubsection{componentDidMount()}
+\subsubsection{componentDidUpdate()}
+\subsubsection{compoenntWillMount()}
+\subsubsection{componentWillReceiveProps()}
+\subsubsection{compoenntWillUnmount()}
+\subsubsection{componentWillUpdat()}
+\subsubsection{constructor()}
+\subsubsection{defaultProps}
+\subsubsection{displayName}
+\subsubsection{forceUpdate()}
+\subsubsection{props}
+\subsubsection{render()}
+\subsubsection{setState()}
+\subsubsection{shouldComponentUpdate()}
+\subsubsection{state}
+
+\chapter{Reference:React}
+\subsubsection{cloneElement()}
+\subsubsection{createElement()}
+\subsubsection{createFactory()}
+\subsubsection{isValidElement()}
+\subsubsection{React.Children}
+\subsubsection{React.Children.count}
+\subsubsection{React.Children.map}
+\subsubsection{React.Children.only}
+\subsubsection{React.Children.toArray}
+\subsubsection{React.Component}
+\subsubsection{React.PureComponent}
+
+\chapter{Reference}
+\subsubsection{createPortal()}
+\subsubsection{DOM Element}
+\subsubsection{findAllInRenderedTree()}
+\subsubsection{findDOMNode()}
+\subsubsection{findeRenderedComponentWithType()}
+\subsubsection{findRenderedDOMComponentWithClass()}
+\subsubsection{findeRenderedDOMComponentWithTag()}
+\subsubsection{Glossary of React Terms}
+\subsubsection{hydrate()}
+\subsubsection{isCompositeComponent()}
+\subsubsection{isCompositeComponentWithType()}
+\subsubsection{isDOMComponent()}
+\subsubsection{isElement()}
+\subsubsection{JavaScript Environment Requirements}
+\subsubsection{mockComponent()}
+\subsubsection{props}
+\subsubsection{props.children}
+\subsubsection{React Top-Level API}
+\subsubsection{React.Component}
+\subsubsection{ReactDOM}
+\subsubsection{ReactDOMServer}
+\subsubsection{render()}
+\subsubsection{renderIntoDocument()}
+\subsubsection{renderToNodeStream()}
+\subsubsection{renderToStaticMarkup()}
+\subsubsection{renderToStaticNodeStream()}
+\subsubsection{renderToString()}
+\subsubsection{scryRenderedComponentsWithType()}
+\subsubsection{scryRenderedDOMComponentsWithClass()}
+\subsubsection{scryRenderedDOMComponentsWithTag()}
+\subsubsection{Shallow Renderer}
+\subsubsection{shallowRenderer.getRenderOutput()}
+\subsubsection{shallowRenderer.render()}
+\subsubsection{Simulate}
+\subsubsection{state}
+\subsubsection{SyntheticEvent}
+\subsubsection{Test Renderer}
+\subsubsection{Test Utilities}
+\subsubsection{testInstance.children}
+\subsubsection{testInstance.find()}
+\subsubsection{testInstance.findAll()}
+\subsubsection{testInstance.findAllByProps()}
+\subsubsection{testInstance.findByProps()}
+\subsubsection{testInstance.findByType()}
+\subsubsection{testInstance.instance()}
+\subsubsection{testInstance.parent}
+\subsubsection{testInstance.props}
+\subsubsection{testInstance.type}
+\subsubsection{TestRenderer.create()}
+\subsubsection{testRenderer.getInstance()}
+\subsubsection{testRendererroot}
+\subsubsection{testRenderer.toJSON()}
+\subsubsection{testRenderertoTree()}
+\subsubsection{testTrenderer.unmount()}
+\subsubsection{testRenderer.update()}
+\subsubsection{unmountcomponentAtNode()}
+
+\chapter{Advanced Guides}
+\subsubsection{Accessibility}
+\subsubsection{Context}
+\subsubsection{Error Boundaries}
+\subsubsection{Higher-Order Components}
+\subsubsection{Intergrating with Other Libraries}
+\subsubsection{JSX In Depth}
+\subsubsection{Optimizing Performance}
+\subsubsection{Portals}
+\subsubsection{React Without ES6}
+\subsubsection{React Without JSX}
+\subsubsection{Reconciliation}
+\subsubsection{Refs and the DOM}
+\subsubsection{Static Type Checking}
+\subsubsection{TypeChecking With PropTypes}
+\subsubsection{Uncontrolled Components}
+\subsubsection{Web Components}
 \end{CJK*}
 \end{document}
